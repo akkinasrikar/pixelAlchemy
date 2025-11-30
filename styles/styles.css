@@ -77,7 +77,7 @@ a:hover {
 /* Hero Section */
 .hero-section {
     height: 60vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/gear/hero_bg.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -587,4 +587,30 @@ footer {
 .glass-card:hover {
     box-shadow: 0 15px 40px rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Gear Images */
+.gear-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    /* background: rgba(0, 0, 0, 0.2); Removed for better blend */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gear-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+    mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+}
+
+.glass-card:hover .gear-image {
+    transform: scale(1.05);
 }
