@@ -339,9 +339,9 @@ a:hover {
     transition: opacity 0.3s ease;
 }
 
-.image-container:hover .overlay {
+/* .image-container:hover .overlay {
     opacity: 1;
-}
+} */
 
 .details {
     font-family: var(--font-secondary);
