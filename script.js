@@ -340,6 +340,19 @@ document.addEventListener("DOMContentLoaded", function () {
             applyBtnMobile.addEventListener('click', function () {
                 console.log('Apply button clicked (Mobile)');
                 applyFilters();
+
+                // Auto-close menu
+                const navbarNav = document.getElementById('navbarNav');
+                if (navbarNav && navbarNav.classList.contains('show')) {
+                    // Check if bootstrap is defined
+                    if (typeof bootstrap !== 'undefined') {
+                        const bsCollapse = bootstrap.Collapse.getInstance(navbarNav) || new bootstrap.Collapse(navbarNav);
+                        bsCollapse.hide();
+                    } else {
+                        // Fallback if bootstrap object isn't available (unlikely given index.html)
+                        navbarNav.classList.remove('show');
+                    }
+                }
             });
         }
     }
