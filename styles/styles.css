@@ -31,7 +31,7 @@ h6 {
 a {
     text-decoration: none;
     color: var(--accent-color);
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 }
 
 a:hover {
@@ -43,7 +43,7 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     padding: 1rem 0;
-    transition: padding 0.3s ease;
+    transition: padding 0.2s ease, background-color 0.2s ease;
 }
 
 .navbar-brand {
@@ -77,11 +77,42 @@ a:hover {
 /* Hero Section */
 .hero-section {
     height: 60vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/gear/hero_bg.png');
+    position: relative;
+    overflow: hidden;
+    /* Removed background-attachment: fixed for performance */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    color: white;
+}
+
+/* Performant fixed background alternative */
+.hero-section::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('../assets/gear/hero_bg.png');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    color: white;
+    z-index: -1;
+    will-change: transform;
+    opacity: 0;
+}
+
+.hero-section-gear::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('../assets/gear/hero_bg.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    will-change: transform;
+    opacity: 0.8;
 }
 
 /* Gallery */
@@ -89,8 +120,7 @@ a:hover {
     column-count: var(--column-count, 3);
     column-gap: 1.5rem;
     padding: 2rem 0;
-    transition: column-count 0.3s ease;
-    /* Smooth transition */
+    /* transition: column-count 0.3s ease; Removed for performance */
 }
 
 /* Slider Controls */
@@ -197,7 +227,7 @@ a:hover {
     border-radius: 4px;
     padding: 0.375rem 0.75rem;
     font-size: 0.9rem;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -238,7 +268,7 @@ a:hover {
     padding: 0.5rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
     margin: 0 2px;
     position: relative;
     overflow: hidden;
@@ -278,7 +308,9 @@ a:hover {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease, filter 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+    will-change: transform, opacity;
     opacity: 1;
     transform: scale(1);
     /* Add spacing between items in vertical flow */
@@ -317,7 +349,8 @@ a:hover {
     /* Allow height to adjust based on aspect ratio */
     display: block;
     /* Remove bottom space */
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
+    will-change: transform;
 }
 
 .image-container:hover img {
@@ -445,18 +478,19 @@ footer {
 
 /* Tools Page Styles */
 .glass-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
     overflow: hidden;
 }
 
 .glass-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.9);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -569,6 +603,7 @@ footer {
     background: radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.15), rgba(0, 0, 0, 0));
     pointer-events: none;
     animation: pulseBg 10s ease-in-out infinite alternate;
+    will-change: transform, opacity;
 }
 
 @keyframes pulseBg {
@@ -606,7 +641,8 @@ footer {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
+    will-change: transform;
     -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
     mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
 }
