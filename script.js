@@ -384,5 +384,58 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
         }
     });
+
+    // Map Initialization
+    const mapContainer = document.getElementById('map');
+    if (mapContainer) {
+        // Default view (India)
+        const map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        // Satellite View (Esri World Imagery)
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Parse and add markers
+        const locations = document.querySelectorAll('.location-item');
+        const bounds = [];
+
+        locations.forEach(loc => {
+            const text = loc.textContent.trim();
+            const name = loc.getAttribute('data-name');
+
+            // Parse format: "13.6807° N, 79.3509° E"
+            const parts = text.split(',');
+            if (parts.length === 2) {
+                let latStr = parts[0].trim();
+                let lngStr = parts[1].trim();
+
+                // Remove degree symbol and direction
+                const latVal = parseFloat(latStr.replace('°', '').replace('N', '').replace('S', '').trim());
+                const lngVal = parseFloat(lngStr.replace('°', '').replace('E', '').replace('W', '').trim());
+
+                // Handle South and West negative values
+                const lat = latStr.includes('S') ? -latVal : latVal;
+                const lng = lngStr.includes('W') ? -lngVal : lngVal;
+
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    L.marker([lat, lng])
+                        .addTo(map)
+                        .bindPopup(`<b>${name}</b><br>${text}`)
+                        .bindTooltip(name, {
+                            permanent: true,
+                            direction: 'bottom',
+                            className: 'map-label'
+                        });
+                    bounds.push([lat, lng]);
+                }
+            }
+        });
+
+        if (bounds.length > 0) {
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+    }
 });
 

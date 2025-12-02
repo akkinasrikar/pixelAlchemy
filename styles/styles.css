@@ -674,3 +674,19 @@ footer {
 .glass-card:hover .gear-image {
     transform: scale(1.05);
 }
+
+/* Map Labels */
+.map-label {
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 2px 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.leaflet-tooltip-bottom:before {
+    border-bottom-color: rgba(0, 0, 0, 0.7);
+}

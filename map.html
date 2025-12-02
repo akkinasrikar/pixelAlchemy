@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Locations - Pixel Alchemy">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <title>Locations | Pixel Alchemy</title>
+    <style>
+        #map {
+            height: 70vh;
+            width: 100%;
+            border-radius: 16px;
+            z-index: 1;
+        }
+
+        .location-list {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dynamic Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-camera-video-fill me-2"></i>Pixel Alchemy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gear.html">Gear</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="map.html">Map</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section-gear d-flex align-items-center justify-content-center text-center"
+        style="min-height: 40vh;">
+        <div class="container animate-in delay-1">
+            <h1 class="display-3 fw-bold mb-3">Locations</h1>
+            <p class="lead mb-0 text-white-50">Where the magic happens.</p>
+        </div>
+    </header>
+
+    <!-- Map Section -->
+    <main class="container py-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="glass-card p-2 animate-in delay-2">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Embedded Location Data -->
+        <div class="location-list">
+            <div class="location-item" data-name="Tirumala">13.6807° N, 79.3509° E</div>
+            <div class="location-item" data-name="Chikmagalur">13.3153° N, 75.7754° E</div>
+            <div class="location-item" data-name="Kanakapura">12.5462° N, 77.4201° E</div>
+            <div class="location-item" data-name="Ooty">11.4102° N, 76.6950° E</div>
+            <div class="location-item" data-name="Wayanad">11.6994° N, 76.0773° E</div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="py-4 text-center animate-in delay-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Srikar Akkina. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
