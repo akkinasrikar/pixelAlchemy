@@ -469,6 +469,30 @@ footer {
         padding: 1rem;
         border-radius: 0 0 8px 8px;
     }
+
+    /* Mobile Filter Alignment Fixes */
+    .nav-filters {
+        display: flex;
+        width: 100%;
+    }
+
+    .nav-filters .btn {
+        flex: 1;
+        /* Force equal width */
+        text-align: center;
+        justify-content: center;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        /* Full width dropdowns */
+        text-align: center;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 /* Utility Classes */
