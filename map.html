@@ -86,7 +86,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="glass-card p-2 animate-in delay-2 position-relative">
-                    <!-- Toggle Controls -->
+                    <!-- Location Toggle Controls (Top Center) -->
                     <div class="map-controls position-absolute top-0 start-50 translate-middle-x mt-3"
                         style="z-index: 1000;">
                         <div class="glass-toggle p-1 rounded-pill d-flex">
@@ -94,6 +94,18 @@
                                 data-map-list="original">General</button>
                             <button class="btn btn-sm btn-glass rounded-pill px-4"
                                 data-map-list="detailed">Detailed</button>
+                        </div>
+                    </div>
+
+                    <!-- Map View Controls (Top Right) -->
+                    <div class="map-view-controls position-absolute top-0 end-0 mt-3 me-3" style="z-index: 1000;">
+                        <div class="glass-toggle p-1 rounded-pill d-flex">
+                            <button class="btn btn-sm btn-glass active rounded-pill px-3 me-1"
+                                data-map-view="satellite">Satellite</button>
+                            <button class="btn btn-sm btn-glass rounded-pill px-3 me-1"
+                                data-map-view="normal">Normal</button>
+                            <button class="btn btn-sm btn-glass rounded-pill px-3"
+                                data-map-view="terrain">Terrain</button>
                         </div>
                     </div>
                     <div id="map"></div>

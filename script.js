@@ -391,11 +391,46 @@ document.addEventListener("DOMContentLoaded", function () {
         // Default view (India)
         const map = L.map('map').setView([20.5937, 78.9629], 5);
 
-        // Satellite View (Esri World Imagery)
-        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        // Tile Layers
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
             maxZoom: 19
-        }).addTo(map);
+        });
+
+        const normalLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+        const terrainLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+        });
+
+        // Add default layer
+        satelliteLayer.addTo(map);
+
+        // Map View Toggle Logic
+        const viewButtons = document.querySelectorAll('[data-map-view]');
+        viewButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Update active state
+                viewButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Switch Layer
+                const view = this.getAttribute('data-map-view');
+                map.removeLayer(satelliteLayer);
+                map.removeLayer(normalLayer);
+                map.removeLayer(terrainLayer);
+
+                if (view === 'satellite') {
+                    satelliteLayer.addTo(map);
+                } else if (view === 'normal') {
+                    normalLayer.addTo(map);
+                } else if (view === 'terrain') {
+                    terrainLayer.addTo(map);
+                }
+            });
+        });
 
         // Layer Group for Markers
         const markersLayer = L.layerGroup().addTo(map);
