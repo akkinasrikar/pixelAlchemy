@@ -690,3 +690,31 @@ footer {
 .leaflet-tooltip-bottom:before {
     border-bottom-color: rgba(0, 0, 0, 0.7);
 }
+
+/* Map Toggle Control */
+.glass-toggle {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-glass {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-glass.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+}

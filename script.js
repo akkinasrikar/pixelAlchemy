@@ -397,45 +397,73 @@ document.addEventListener("DOMContentLoaded", function () {
             maxZoom: 19
         }).addTo(map);
 
-        // Parse and add markers
-        const locations = document.querySelectorAll('.location-item');
-        const bounds = [];
+        // Layer Group for Markers
+        const markersLayer = L.layerGroup().addTo(map);
 
-        locations.forEach(loc => {
-            const text = loc.textContent.trim();
-            const name = loc.getAttribute('data-name');
+        function loadMarkers(listType) {
+            markersLayer.clearLayers();
 
-            // Parse format: "13.6807° N, 79.3509° E"
-            const parts = text.split(',');
-            if (parts.length === 2) {
-                let latStr = parts[0].trim();
-                let lngStr = parts[1].trim();
+            const listId = listType === 'detailed' ? 'detailed-locations' : 'original-locations';
+            const listContainer = document.getElementById(listId);
 
-                // Remove degree symbol and direction
-                const latVal = parseFloat(latStr.replace('°', '').replace('N', '').replace('S', '').trim());
-                const lngVal = parseFloat(lngStr.replace('°', '').replace('E', '').replace('W', '').trim());
-
-                // Handle South and West negative values
-                const lat = latStr.includes('S') ? -latVal : latVal;
-                const lng = lngStr.includes('W') ? -lngVal : lngVal;
-
-                if (!isNaN(lat) && !isNaN(lng)) {
-                    L.marker([lat, lng])
-                        .addTo(map)
-                        .bindPopup(`<b>${name}</b><br>${text}`)
-                        .bindTooltip(name, {
-                            permanent: true,
-                            direction: 'bottom',
-                            className: 'map-label'
-                        });
-                    bounds.push([lat, lng]);
-                }
+            if (!listContainer) {
+                console.error(`Location list not found: ${listId}`);
+                return;
             }
-        });
 
-        if (bounds.length > 0) {
-            map.fitBounds(bounds, { padding: [50, 50] });
+            const locations = listContainer.querySelectorAll('.location-item');
+            const bounds = [];
+
+            locations.forEach(loc => {
+                const text = loc.textContent.trim();
+                const name = loc.getAttribute('data-name');
+
+                // Parse format: "13.6807° N, 79.3509° E"
+                const parts = text.split(',');
+                if (parts.length === 2) {
+                    let latStr = parts[0].trim();
+                    let lngStr = parts[1].trim();
+
+                    // Remove degree symbol and direction
+                    const latVal = parseFloat(latStr.replace('°', '').replace('N', '').replace('S', '').trim());
+                    const lngVal = parseFloat(lngStr.replace('°', '').replace('E', '').replace('W', '').trim());
+
+                    // Handle South and West negative values
+                    const lat = latStr.includes('S') ? -latVal : latVal;
+                    const lng = lngStr.includes('W') ? -lngVal : lngVal;
+
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        const marker = L.marker([lat, lng])
+                            .bindPopup(`<b>${name}</b><br>${text}`)
+                            .bindTooltip(name, {
+                                permanent: true,
+                                direction: 'bottom',
+                                className: 'map-label'
+                            });
+                        markersLayer.addLayer(marker);
+                        bounds.push([lat, lng]);
+                    }
+                }
+            });
+
+            if (bounds.length > 0) {
+                map.fitBounds(bounds, { padding: [50, 50] });
+            }
         }
+
+        // Initial Load
+        loadMarkers('original');
+
+        // Toggle Event Listeners
+        const toggleButtons = document.querySelectorAll('[data-map-list]');
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                toggleButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const type = this.getAttribute('data-map-list');
+                loadMarkers(type);
+            });
+        });
     }
 });
 

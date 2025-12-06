@@ -85,14 +85,25 @@
     <main class="container py-0">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="glass-card p-2 animate-in delay-2">
+                <div class="glass-card p-2 animate-in delay-2 position-relative">
+                    <!-- Toggle Controls -->
+                    <div class="map-controls position-absolute top-0 start-50 translate-middle-x mt-3"
+                        style="z-index: 1000;">
+                        <div class="glass-toggle p-1 rounded-pill d-flex">
+                            <button class="btn btn-sm btn-glass active rounded-pill px-4 me-1"
+                                data-map-list="original">General</button>
+                            <button class="btn btn-sm btn-glass rounded-pill px-4"
+                                data-map-list="detailed">Detailed</button>
+                        </div>
+                    </div>
                     <div id="map"></div>
                 </div>
             </div>
         </div>
 
         <!-- Embedded Location Data -->
-        <div class="location-list">
+        <!-- Original List -->
+        <div id="original-locations" class="location-list" style="display: none;">
             <div class="location-item" data-name="Tirumala">13.6807° N, 79.3509° E</div>
             <div class="location-item" data-name="Chikmagalur">13.3153° N, 75.7754° E</div>
             <div class="location-item" data-name="Ooty">11.4102° N, 76.6950° E</div>
@@ -110,10 +121,17 @@
             <div class="location-item" data-name="Narayanagiri Hills">12.9268° N, 77.2798° E</div>
             <div class="location-item" data-name="Devarayanadurga Hills">13.375° N, 77.213° E</div>
             <div class="location-item" data-name="Hogenakkal Water Falls">12.1182° N, 77.77385° E</div>
+        </div>
 
-
-
-
+        <!-- Detailed List -->
+        <div id="detailed-locations" class="location-list" style="display: none;">
+            <div class="location-item" data-name="Tirumala Devastanam">13.6832597° N, 79.347114° E</div>
+            <div class="location-item" data-name="Japali">13.6965394° N, 79.3365122° E</div>
+            <div class="location-item" data-name="Sri Vari Padalu">13.6794843° N, 79.3327889° E</div>
+            <div class="location-item" data-name="Papavinasanam Theertham">13.7198495° N, 79.3447291° E</div>
+            <div class="location-item" data-name="Akashaganga">13.7062015° N, 79.3398747° E</div>
+            <div class="location-item" data-name="Silathoranam">13.6873945° N, 79.3351943° E</div>
+            <div class="location-item" data-name="Chakra Theertham">13.6884088° N, 79.3401794° E</div>
         </div>
     </main>
 
