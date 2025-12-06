@@ -389,7 +389,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const mapContainer = document.getElementById('map');
     if (mapContainer) {
         // Default view (India)
-        const map = L.map('map').setView([20.5937, 78.9629], 5);
+        const map = L.map('map', {
+            attributionControl: false
+        }).setView([20.5937, 78.9629], 5);
 
         // Tile Layers
         const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {

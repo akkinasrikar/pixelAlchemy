@@ -718,3 +718,36 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     font-weight: 600;
 }
+
+/* Map View Controls Responsive Positioning */
+.map-view-controls {
+    top: 1rem;
+    right: 1rem;
+}
+
+@media (max-width: 768px) {
+    .map-view-controls {
+        top: auto;
+        bottom: 1.5rem;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        /* Ensure it doesn't overflow */
+        max-width: 350px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .map-view-controls .glass-toggle {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .map-view-controls .btn-glass {
+        flex: 1;
+        /* Distribute space evenly */
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+}
