@@ -412,6 +412,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Map View Toggle Logic
         const viewButtons = document.querySelectorAll('[data-map-view]');
+        const bordersContainer = document.getElementById('borders-control-container');
+
+        // Initial check
+        if (bordersContainer) {
+            bordersContainer.style.display = 'block'; // Default is satellite, so show it
+        }
+
         viewButtons.forEach(btn => {
             btn.addEventListener('click', function () {
                 // Update active state
@@ -426,13 +433,74 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (view === 'satellite') {
                     satelliteLayer.addTo(map);
-                } else if (view === 'normal') {
-                    normalLayer.addTo(map);
-                } else if (view === 'terrain') {
-                    terrainLayer.addTo(map);
+                    if (bordersContainer) bordersContainer.style.display = 'block';
+                } else {
+                    if (view === 'normal') {
+                        normalLayer.addTo(map);
+                    } else if (view === 'terrain') {
+                        terrainLayer.addTo(map);
+                    }
+
+                    // Hide borders toggle and borders if not satellite
+                    if (bordersContainer) bordersContainer.style.display = 'none';
+                    if (bordersLayer && map.hasLayer(bordersLayer)) {
+                        map.removeLayer(bordersLayer);
+                        map.removeLayer(labelsLayer);
+                        const borderToggle = document.getElementById('toggle-borders');
+                        if (borderToggle) {
+                            borderToggle.classList.remove('active');
+                            borderToggle.textContent = 'Show Borders';
+                        }
+                    }
                 }
             });
         });
+
+        // State Borders & Labels Logic
+        let bordersLayer = null;
+        let labelsLayer = L.layerGroup();
+
+        if (typeof indiaStatesData !== 'undefined') {
+            bordersLayer = L.geoJSON(indiaStatesData, {
+                style: {
+                    color: '#ffffff',
+                    weight: 1,
+                    opacity: 0.6,
+                    fillOpacity: 0
+                },
+                onEachFeature: function (feature, layer) {
+                    if (feature.properties && feature.properties.district) {
+                        const center = layer.getBounds().getCenter();
+                        const label = L.marker(center, {
+                            icon: L.divIcon({
+                                className: 'state-label',
+                                html: feature.properties.district,
+                                iconSize: [100, 20],
+                                iconAnchor: [50, 10] // Center the icon
+                            })
+                        });
+                        labelsLayer.addLayer(label);
+                    }
+                }
+            });
+        }
+
+        const borderToggle = document.getElementById('toggle-borders');
+        if (borderToggle && bordersLayer) {
+            borderToggle.addEventListener('click', function () {
+                if (map.hasLayer(bordersLayer)) {
+                    map.removeLayer(bordersLayer);
+                    map.removeLayer(labelsLayer);
+                    this.classList.remove('active');
+                    this.textContent = 'Show Borders';
+                } else {
+                    bordersLayer.addTo(map);
+                    labelsLayer.addTo(map);
+                    this.classList.add('active');
+                    this.textContent = 'Hide Borders';
+                }
+            });
+        }
 
         // Layer Group for Markers
         const markersLayer = L.layerGroup().addTo(map);

@@ -723,6 +723,10 @@ footer {
 .map-view-controls {
     top: 1rem;
     right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
 }
 
 @media (max-width: 768px) {
@@ -735,13 +739,19 @@ footer {
         width: 90%;
         /* Ensure it doesn't overflow */
         max-width: 350px;
-        display: flex;
-        justify-content: center;
+        align-items: center;
     }
 
     .map-view-controls .glass-toggle {
         width: 100%;
         justify-content: space-between;
+    }
+
+    /* Center the borders toggle content specifically on mobile if needed,
+       but justifying space-between is fine if it's full width.
+       Actually for single button, we might want it centered or full width. */
+    .map-view-controls .glass-toggle:last-child {
+        justify-content: center;
     }
 
     .map-view-controls .btn-glass {
@@ -751,3 +761,35 @@ footer {
         padding-right: 0.5rem !important;
     }
 }
+
+/* State Labels */
+.state-label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Borders Toggle Mobile Positioning */
+@media (max-width: 768px) {
+    #borders-control-container {
+        left: 50% !important;
+        transform: translateX(-50%);
+        bottom: 5rem !important;
+        /* Stack above the map-view-controls */
+        width: auto !important;
+        margin-left: 0 !important;
+        /* Override the bootstrap ms-3 */
+    }
+}
+
+```

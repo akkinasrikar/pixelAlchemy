@@ -98,8 +98,9 @@
                     </div>
 
                     <!-- Map View Controls (Top Right on Desktop, Bottom Center on Mobile) -->
-                    <div class="map-view-controls position-absolute" style="z-index: 1000;">
-                        <div class="glass-toggle p-1 rounded-pill d-flex">
+                    <div class="map-view-controls position-absolute"
+                        style="z-index: 1000; display: flex; flex-direction: column; align-items: flex-end;">
+                        <div class="glass-toggle p-1 rounded-pill d-flex mb-2">
                             <button class="btn btn-sm btn-glass active rounded-pill px-3 me-1"
                                 data-map-view="satellite">Satellite</button>
                             <button class="btn btn-sm btn-glass rounded-pill px-3 me-1"
@@ -108,6 +109,16 @@
                                 data-map-view="terrain">Terrain</button>
                         </div>
                     </div>
+
+                    <!-- Borders Toggle (Bottom Left - Hidden by default, shown on Satellite) -->
+                    <div id="borders-control-container" class="position-absolute bottom-0 start-0 mb-4 ms-3"
+                        style="z-index: 1000; display: none;">
+                        <div class="glass-toggle p-1 rounded-pill d-flex">
+                            <button class="btn btn-sm btn-glass rounded-pill px-3" id="toggle-borders">Show
+                                Borders</button>
+                        </div>
+                    </div>
+
                     <div id="map"></div>
                 </div>
             </div>
@@ -197,6 +208,10 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Custom Data -->
+    <script src="india_states.js"></script>
+    <script src="india_highways.js"></script>
 
     <!-- Custom JS -->
     <script src="script.js"></script>
