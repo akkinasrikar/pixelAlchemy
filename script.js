@@ -505,70 +505,70 @@ document.addEventListener("DOMContentLoaded", function () {
         // Layer Group for Markers
         const markersLayer = L.layerGroup().addTo(map);
 
+        // Load Markers Function
+        // Uses global variables from locations_data.js
         function loadMarkers(listType) {
+            // Clear existing markers
             markersLayer.clearLayers();
 
-            const listId = listType === 'detailed' ? 'detailed-locations' : 'original-locations';
-            const listContainer = document.getElementById(listId);
-
-            if (!listContainer) {
-                console.error(`Location list not found: ${listId}`);
-                return;
+            let locations = [];
+            if (listType === 'original' && typeof originalLocationsData !== 'undefined') {
+                locations = originalLocationsData;
+            } else if (listType === 'detailed' && typeof detailedLocationsData !== 'undefined') {
+                locations = detailedLocationsData;
             }
 
-            const locations = listContainer.querySelectorAll('.location-item');
-            const bounds = [];
+            const markers = []; // To store L.marker objects for bounds
 
             locations.forEach(loc => {
-                const text = loc.textContent.trim();
-                const name = loc.getAttribute('data-name');
+                const lat = loc.lat;
+                const lng = loc.lng;
+                const name = loc.name;
 
-                // Parse format: "13.6807° N, 79.3509° E"
-                const parts = text.split(',');
-                if (parts.length === 2) {
-                    let latStr = parts[0].trim();
-                    let lngStr = parts[1].trim();
+                // Create Icon
+                const customIcon = L.divIcon({
+                    className: 'custom-div-icon',
+                    html: "<div style='background-color:#4a90e2; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);'></div>",
+                    iconSize: [12, 12],
+                    iconAnchor: [6, 6]
+                });
 
-                    // Remove degree symbol and direction
-                    const latVal = parseFloat(latStr.replace('°', '').replace('N', '').replace('S', '').trim());
-                    const lngVal = parseFloat(lngStr.replace('°', '').replace('E', '').replace('W', '').trim());
+                // Add Marker
+                const marker = L.marker([lat, lng], { icon: customIcon })
+                    .bindPopup(`<div style="font-family: 'Inter', sans-serif; font-size: 14px; color: #333;"><strong>${name}</strong></div>`)
+                    .bindTooltip(name, {
+                        permanent: true,
+                        direction: 'top',
+                        className: 'map-label',
+                        offset: [0, -10]
+                    });
 
-                    // Handle South and West negative values
-                    const lat = latStr.includes('S') ? -latVal : latVal;
-                    const lng = lngStr.includes('W') ? -lngVal : lngVal;
-
-                    if (!isNaN(lat) && !isNaN(lng)) {
-                        const marker = L.marker([lat, lng])
-                            .bindPopup(`<b>${name}</b><br>${text}`)
-                            .bindTooltip(name, {
-                                permanent: true,
-                                direction: 'bottom',
-                                className: 'map-label'
-                            });
-                        markersLayer.addLayer(marker);
-                        bounds.push([lat, lng]);
-                    }
-                }
+                markersLayer.addLayer(marker);
+                markers.push(marker);
             });
 
-            if (bounds.length > 0) {
-                map.fitBounds(bounds, { padding: [50, 50] });
+            // Fit Bounds if markers exist
+            if (markers.length > 0) {
+                const group = L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
             }
         }
 
-        // Initial Load
+        // Load initial list
         loadMarkers('original');
 
-        // Toggle Event Listeners
+        // Location Toggle Logic
         const toggleButtons = document.querySelectorAll('[data-map-list]');
         toggleButtons.forEach(btn => {
             btn.addEventListener('click', function () {
+                // Update active state
                 toggleButtons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                const type = this.getAttribute('data-map-list');
-                loadMarkers(type);
+
+                // Load markers
+                const listType = this.getAttribute('data-map-list');
+                loadMarkers(listType);
             });
         });
     }
 });
-

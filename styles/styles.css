@@ -782,14 +782,6 @@ footer {
 /* Borders Toggle Mobile Positioning */
 @media (max-width: 768px) {
     #borders-control-container {
-        left: 50% !important;
-        transform: translateX(-50%);
-        bottom: 5rem !important;
-        /* Stack above the map-view-controls */
-        width: auto !important;
-        margin-left: 0 !important;
-        /* Override the bootstrap ms-3 */
+        display: none !important;
     }
 }
-
-```
