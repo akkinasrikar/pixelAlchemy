@@ -460,44 +460,76 @@ document.addEventListener("DOMContentLoaded", function () {
         let bordersLayer = null;
         let labelsLayer = L.layerGroup();
 
-        if (typeof indiaStatesData !== 'undefined') {
-            bordersLayer = L.geoJSON(indiaStatesData, {
-                style: {
-                    color: '#ffffff',
-                    weight: 1,
-                    opacity: 0.6,
-                    fillOpacity: 0
-                },
-                onEachFeature: function (feature, layer) {
-                    if (feature.properties && feature.properties.district) {
-                        const center = layer.getBounds().getCenter();
-                        const label = L.marker(center, {
-                            icon: L.divIcon({
-                                className: 'state-label',
-                                html: feature.properties.district,
-                                iconSize: [100, 20],
-                                iconAnchor: [50, 10] // Center the icon
-                            })
-                        });
-                        labelsLayer.addLayer(label);
-                    }
-                }
-            });
-        }
+        // Data is now loaded on demand via fetch in the toggle listener
+
 
         const borderToggle = document.getElementById('toggle-borders');
-        if (borderToggle && bordersLayer) {
+        if (borderToggle) {
             borderToggle.addEventListener('click', function () {
-                if (map.hasLayer(bordersLayer)) {
+                if (bordersLayer && map.hasLayer(bordersLayer)) {
                     map.removeLayer(bordersLayer);
                     map.removeLayer(labelsLayer);
                     this.classList.remove('active');
                     this.textContent = 'Show Borders';
                 } else {
-                    bordersLayer.addTo(map);
-                    labelsLayer.addTo(map);
-                    this.classList.add('active');
-                    this.textContent = 'Hide Borders';
+                    // Check if data is already loaded
+                    if (bordersLayer) {
+                        bordersLayer.addTo(map);
+                        labelsLayer.addTo(map);
+                        this.classList.add('active');
+                        this.textContent = 'Hide Borders';
+                    } else {
+
+                        // Load script dynamically (works for file:// protocol)
+                        this.textContent = 'Loading...';
+
+                        const script = document.createElement('script');
+                        script.src = 'india_states_data.js';
+
+                        script.onload = () => {
+                            if (window.indiaStatesData) {
+                                bordersLayer = L.geoJSON(window.indiaStatesData, {
+                                    style: {
+                                        color: '#ffffff',
+                                        weight: 1,
+                                        opacity: 0.6,
+                                        fillOpacity: 0
+                                    },
+                                    onEachFeature: function (feature, layer) {
+                                        if (feature.properties && feature.properties.district) {
+                                            const center = layer.getBounds().getCenter();
+                                            const label = L.marker(center, {
+                                                icon: L.divIcon({
+                                                    className: 'state-label',
+                                                    html: feature.properties.district,
+                                                    iconSize: [100, 20],
+                                                    iconAnchor: [50, 10] // Center the icon
+                                                })
+                                            });
+                                            labelsLayer.addLayer(label);
+                                        }
+                                    }
+                                });
+
+                                bordersLayer.addTo(map);
+                                labelsLayer.addTo(map);
+
+                                const btn = document.getElementById('toggle-borders');
+                                if (btn) {
+                                    btn.classList.add('active');
+                                    btn.textContent = 'Hide Borders';
+                                }
+                            }
+                        };
+
+                        script.onerror = () => {
+                            console.error('Error loading map data script');
+                            const btn = document.getElementById('toggle-borders');
+                            if (btn) btn.textContent = 'Error Loading';
+                        };
+
+                        document.body.appendChild(script);
+                    }
                 }
             });
         }

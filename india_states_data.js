@@ -1,4 +1,4 @@
-const indiaStatesData = 
+window.indiaStatesData = 
 {
     "type": "FeatureCollection",
     "features": [
@@ -108418,5 +108418,4 @@ const indiaStatesData =
             }
         }
     ]
-}
-;
+};
