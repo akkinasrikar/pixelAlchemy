@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Dynamic Gallery Loading
-    const JSON_URL = 'https://gist.githubusercontent.com/luffytaroOnePiece/084d6afb96a512e7bcee9bb99db06db2/raw/srikar.json';
+    const JSON_URL = 'https://gist.githubusercontent.com/luffytaroOnePiece/084d6afb96a512e7bcee9bb99db06db2/raw/pics.json';
 
     // State for filters
     let currentOrientation = 'all';
