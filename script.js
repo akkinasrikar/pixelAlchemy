@@ -214,6 +214,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     `;
 
+                    // Check if the new image matches current filters
+                    const matchOrientation = currentOrientation === 'all' || orientation === currentOrientation;
+                    const matchLocation = currentLocation === 'all' || imgData.location === currentLocation;
+                    const matchYear = currentYear === 'all' || imgData.year === currentYear;
+
+                    if (!matchOrientation || !matchLocation || !matchYear) {
+                        container.classList.add('hidden');
+                    }
+
                     gallery.appendChild(container);
 
                     // Trigger reflow and fade in
