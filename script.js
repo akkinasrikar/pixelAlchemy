@@ -552,12 +552,27 @@ document.addEventListener("DOMContentLoaded", function () {
             // Clear existing markers
             markersLayer.clearLayers();
 
+            console.log('loadMarkers called with:', listType);
             let locations = [];
             if (listType === 'original' && typeof originalLocationsData !== 'undefined') {
                 locations = originalLocationsData;
             } else if (listType === 'detailed' && typeof detailedLocationsData !== 'undefined') {
                 locations = detailedLocationsData;
+            } else if (listType === 'food') {
+                if (typeof foodLocationsData !== 'undefined') {
+                    locations = foodLocationsData;
+                } else if (typeof window.foodLocationsData !== 'undefined') {
+                    locations = window.foodLocationsData;
+                }
+
+                if (locations.length > 0) {
+                    console.log('Found foodLocationsData:', locations);
+                } else {
+                    console.error('foodLocationsData is undefined or empty');
+                }
             }
+
+            console.log('Locations to render:', locations);
 
             const markers = []; // To store L.marker objects for bounds
 
@@ -567,9 +582,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 const name = loc.name;
 
                 // Create Icon
+                let iconHtml = "<div style='background-color:#4a90e2; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);'></div>";
+
+                if (listType === 'food') {
+                    // Orange icon for food
+                    iconHtml = "<div style='background-color:#ff9800; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);'></div>";
+                }
+
                 const customIcon = L.divIcon({
                     className: 'custom-div-icon',
-                    html: "<div style='background-color:#4a90e2; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);'></div>",
+                    html: iconHtml,
                     iconSize: [12, 12],
                     iconAnchor: [6, 6]
                 });

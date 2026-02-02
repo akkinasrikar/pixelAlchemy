@@ -62,3 +62,10 @@ const detailedLocationsData = [
     { name: "Thiruchendur Beach", lat: 8.494441, lng: 78.128610 },
     { name: "Sunset Point Kanyakumari", lat: 8.078046, lng: 77.531673 }
 ];
+
+var foodLocationsData = [
+    { name: "Babai Tiffins", lat: 12.918215, lng: 77.644836 },
+    { name: "Arogya Ahara", lat: 12.916712, lng: 77.638138 },
+    { name: "Bombay Brasserie", lat: 12.970129, lng: 77.645886 },
+    { name: "Bologna Italian Restaurant", lat: 12.971761, lng: 77.641016 },
+];
