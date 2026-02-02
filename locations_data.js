@@ -68,4 +68,10 @@ var foodLocationsData = [
     { name: "Arogya Ahara", lat: 12.916712, lng: 77.638138 },
     { name: "Bombay Brasserie", lat: 12.970129, lng: 77.645886 },
     { name: "Bologna Italian Restaurant", lat: 12.971761, lng: 77.641016 },
+    { name: "The Pizza Bakery", lat: 12.970185, lng: 77.644706 },
+    { name: "The Reservoire", lat: 12.970204, lng: 77.639233 },
+    { name: "Gawky Goose", lat: 12.954027, lng: 77.652744 },
+    { name: "Vembanad", lat: 12.953794, lng: 77.639707 },
+    { name: "The Paul Bangalore", lat: 12.953715, lng: 77.639555 },
+
 ];
