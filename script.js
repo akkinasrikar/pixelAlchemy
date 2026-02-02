@@ -399,7 +399,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (mapContainer) {
         // Default view (India)
         const map = L.map('map', {
-            attributionControl: false
+            attributionControl: false,
+            zoomControl: false
         }).setView([20.5937, 78.9629], 5);
 
         // Tile Layers
