@@ -73,5 +73,9 @@ var foodLocationsData = [
     { name: "Gawky Goose", lat: 12.954027, lng: 77.652744 },
     { name: "Vembanad", lat: 12.953794, lng: 77.639707 },
     { name: "The Paul Bangalore", lat: 12.953715, lng: 77.639555 },
-
+    { name: "Anmay Restaurant", lat: 12.915586, lng: 77.651574 },
+    { name: "Meghana Restaurant", lat: 12.918588, lng: 77.670280 },
+    { name: "Street 1522", lat: 12.903116, lng: 77.704469 },
+    { name: "Badmaash", lat: 12.909310, lng: 77.687669 },
+    { name: "Big Pitcher", lat: 12.909644, lng: 77.688480 },
 ];
