@@ -82,4 +82,8 @@ var foodLocationsData = [
   { name: "Bathinda Junction", lat: 12.969013, lng: 77.648155 },
   { name: "Biergarten", lat: 12.933438, lng: 77.614277 },
   { name: "Glens BakeHouse", lat: 12.912043, lng: 77.648198 },
+  { name: "Vesparo", lat: 12.96648, lng: 77.641775 },
+  { name: "Element 3", lat: 12.979133, lng: 77.643777 },
+  { name: "Moddy's Chocolate", lat: 11.41477, lng: 76.709168 },
+  { name: "Mysore Veg Cafe", lat: 11.662112, lng: 76.256249 },
 ];
