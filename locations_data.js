@@ -86,4 +86,6 @@ var foodLocationsData = [
   { name: "Element 3", lat: 12.979133, lng: 77.643777 },
   { name: "Moddy's Chocolate", lat: 11.41477, lng: 76.709168 },
   { name: "Mysore Veg Cafe", lat: 11.662112, lng: 76.256249 },
+  { name: "House of Commons", lat: 12.969901, lng: 77.641421 },
+  { name: "Kahale Filter Kaapi", lat: 12.92448, lng: 77.585103 },
 ];
