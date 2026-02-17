@@ -88,4 +88,5 @@ var foodLocationsData = [
   { name: "Mysore Veg Cafe", lat: 11.662112, lng: 76.256249 },
   { name: "House of Commons", lat: 12.969901, lng: 77.641421 },
   { name: "Kahale Filter Kaapi", lat: 12.92448, lng: 77.585103 },
+  { name: "Brik Oven - Woodfired Pizzas", lat: 12.913884, lng: 77.644765 },
 ];
